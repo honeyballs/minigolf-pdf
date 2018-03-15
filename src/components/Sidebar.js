@@ -25,7 +25,7 @@ const Sidebar = props => {
           handleBahnenChange={props.handleBahnenChange}
         />
       )}
-      <button onClick={evt => window.print()}>Drucken</button>
+      <button onClick={evt => window.print()} style={btnPrintStyle}>Drucken</button>
     </div>
   );
 };
@@ -40,5 +40,9 @@ const dropStyle = {
   flexDirection: "column",
   justifyContent: "center"
 };
+
+const btnPrintStyle = {
+  margin: "1em"
+}
 
 export default Sidebar;

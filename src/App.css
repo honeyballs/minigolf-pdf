@@ -50,5 +50,5 @@
 
 @media print {
   body * { visibility: hidden; }
-  .pdf * { visibility: visible; }
+  #pdf * { visibility: visible; }
 }
