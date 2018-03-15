@@ -26,6 +26,7 @@ const Sidebar = props => {
           handleBahnenChange={props.handleBahnenChange}
         />
       )}
+      <button onClick={evt => window.print()}>Drucken</button>
     </div>
   );
 };
