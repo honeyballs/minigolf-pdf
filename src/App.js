@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Sidebar files={this.state.files} loadFile={this.loadFile}/>
+        <Sidebar loadFile={this.loadFile}/>
         <div id="pdf"></div>
       </div>
     );
@@ -23,13 +23,19 @@ class App extends Component {
       return
     }
     let file = files[0]
+    if(!file.name.endsWith(".json")){
+      console.log("uploaded file is not a .json file")
+      return
+    }
     if (window.File && window.FileReader && window.FileList && window.Blob) {
-      //TODO: check file type for json, oder dropzone so einstellen das es nur json akzepziert
       let reader = new FileReader()
       reader.onload = ()=>{
-        //TODO: try catch for valid json
-        let data = JSON.parse(reader.result)
-        this.setState({data:data})
+        try {
+          let data = JSON.parse(reader.result)
+          this.setState({data:data})
+        }catch(err){
+            console.log("error parsing the json")
+        }
       }
       reader.readAsText(file)
 
