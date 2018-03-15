@@ -57,6 +57,9 @@
 }
 
 @media print {
+  .App {
+    align-items: flex-start;
+  }
   #Sidebar { display: none !important; }
   #pdf-container {
     height: auto;
