@@ -23,7 +23,7 @@ class App extends Component {
           selectedBahnen={this.state.selectedBahnen}
           handleBahnenChange={this.handleBahnenSelectChange}
         />
-        <div id="pdf" />
+        <div id="pdf">{this.state.data.map(item=><p>{item.spieler}</p>)}</div>
       </div>
     );
   }
@@ -55,7 +55,9 @@ class App extends Component {
       reader.onload = () => {
         try {
           let data = JSON.parse(reader.result);
-          this.setState({ data: data });
+          this.setState({ data: data,selectedAnlagen: [],
+          selectedSpieler: [],
+          selectedBahnen: [] });
         } catch (err) {
           console.log("error parsing the json");
         }
