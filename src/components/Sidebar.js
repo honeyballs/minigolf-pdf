@@ -32,7 +32,7 @@ const Sidebar = props => {
 
 const dropStyle = {
   width: "100%",
-  height: "300px",
+  height: "200px",
   color: "#fff",
   border: "2px dotted #fff",
   borderRadius: "15px",

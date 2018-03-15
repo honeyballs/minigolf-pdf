@@ -19,12 +19,6 @@
   align-items: center;
 }
 
-#pdf {
-  height: 100%;
-  flex: 0 1 75%;
-  background: #999;
-}
-
 .dropzone {
   width: 90%;
   margin: 20px auto;
@@ -33,6 +27,25 @@
 #OptionList {
   width: 90%;
   margin: 0 auto;
+  text-align: left;
+}
+
+#pdf-container {
+  height: 100%;
+  flex: 0 1 75%;
+  background: #999;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+#pdf {
+  width: 90%;
+  height: 100%;
+  margin: 20px auto 0;
+  background: #fff;
+  -webkit-box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
 }
 
 @media print {

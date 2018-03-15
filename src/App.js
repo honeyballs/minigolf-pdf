@@ -23,22 +23,26 @@ class App extends Component {
           selectedBahnen={this.state.selectedBahnen}
           handleBahnenChange={this.handleBahnenSelectChange}
         />
-        <div id="pdf" />
+        <div id="pdf-container">
+          <div id="pdf">
+            {this.state.data.map(item => <p>{item.spieler}</p>)}
+          </div>
+        </div>
       </div>
     );
   }
 
   handleAnlagenSelectChange = value => {
-    this.setState({selectedAnlagen: value})
-  }
+    this.setState({ selectedAnlagen: value });
+  };
 
   handleSpielerSelectChange = value => {
-    this.setState({selectedSpieler: value})
-  }
+    this.setState({ selectedSpieler: value });
+  };
 
   handleBahnenSelectChange = value => {
-    this.setState({selectedBahnen: value})
-  }
+    this.setState({ selectedBahnen: value });
+  };
 
   loadFile = files => {
     if (!files.length) {
@@ -55,7 +59,12 @@ class App extends Component {
       reader.onload = () => {
         try {
           let data = JSON.parse(reader.result);
-          this.setState({ data: data });
+          this.setState({
+            data: data,
+            selectedAnlagen: [],
+            selectedSpieler: [],
+            selectedBahnen: []
+          });
         } catch (err) {
           console.log("error parsing the json");
         }
