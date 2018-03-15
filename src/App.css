@@ -57,6 +57,18 @@
 }
 
 @media print {
-  body * { visibility: hidden; }
-  #pdf * { visibility: visible; }
+  #Sidebar { display: none !important; }
+  #pdf-container {
+    height: auto;
+    min-width: 100%;
+  }
+  #pdf {
+    margin: 0;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+  }
 }
