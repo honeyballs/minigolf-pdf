@@ -6,8 +6,8 @@ const Sidebar = props => {
   return (
     <div id="Sidebar">
       <h1>Minigolf PDF</h1>
-      <p class="dropzone-headline">{props.fileName?<span><b>{props.fileName}</b> loaded</span>: 'Drag your JSON file here.'}</p>
-      {props.fileError && <p class="dropzone-error">{props.fileError}</p>}
+      <p className="dropzone-headline">{props.fileName?<span><b>{props.fileName}</b> loaded</span>: 'Drag your JSON file here.'}</p>
+      {props.fileError && <p className="dropzone-error">{props.fileError}</p>}
       <div className="dropzone" accept=".json">
         <Dropzone onDrop={props.loadFile} style={dropStyle}>
           <p>
