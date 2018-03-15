@@ -3,12 +3,15 @@ import Sidebar from "./components/Sidebar";
 import "./App.css";
 
 class App extends Component {
-  state = {
+  initialState = {
     data: [],
+    fileName: false,
+    fileError: false,
     selectedAnlagen: [],
     selectedSpieler: [],
     selectedBahnen: []
   };
+  state = this.initialState
 
   render() {
     return (
@@ -16,6 +19,8 @@ class App extends Component {
         <Sidebar
           loadFile={this.loadFile}
           data={this.state.data}
+          fileName={this.state.fileName}
+          fileError={this.state.fileError}
           selectedAnlagen={this.state.selectedAnlagen}
           handleAnlagenChange={this.handleAnlagenSelectChange}
           selectedSpieler={this.state.selectedSpieler}
@@ -46,12 +51,12 @@ class App extends Component {
 
   loadFile = files => {
     if (!files.length) {
-      console.log("no file uploaded");
+      this.setState({...this.initialState, fileError: 'something went wrong during file upload!'});
       return;
     }
     let file = files[0];
     if (!file.name.endsWith(".json")) {
-      console.log("uploaded file is not a .json file");
+      this.setState({...this.initialState, fileError: 'uploaded file is not a .json file!'});
       return;
     }
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -61,17 +66,18 @@ class App extends Component {
           let data = JSON.parse(reader.result);
           this.setState({
             data: data,
+            fileName: file.name,
+            fileError: false,
             selectedAnlagen: [],
             selectedSpieler: [],
-            selectedBahnen: []
-          });
+            selectedBahnen: [] });
         } catch (err) {
-          console.log("error parsing the json");
+          this.setState({...this.initialState, fileError: 'error parsing the json! (check https://jsonlint.com/)'});
         }
       };
       reader.readAsText(file);
     } else {
-      console.log("The File APIs are not fully supported in this browser.");
+      this.setState({...this.initialState, fileError: 'the file APIs are not fully supported in this browser!'});
     }
   };
 }
