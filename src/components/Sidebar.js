@@ -1,5 +1,6 @@
 import React from 'react';
 import Dropzone from 'react-dropzone'
+import OptionList from './OptionList';
 
 const Sidebar = props => {
 
@@ -17,6 +18,7 @@ const Sidebar = props => {
             {props.file? props.file.name:''}
           </aside>
         </section>
+        <OptionList data={props.data} />
         </div>
     );
 };

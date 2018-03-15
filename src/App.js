@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Sidebar files={this.state.files} loadFile={this.loadFile}/>
+        <Sidebar files={this.state.files} loadFile={this.loadFile} data={this.state.data}/>
         <div id="pdf"></div>
       </div>
     );
