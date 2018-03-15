@@ -29,9 +29,9 @@ const OptionList = props => {
   }
   return (
     <div id="OptionList">
-      <Select name="anlage-select" options={anlageObjects} multi={true} />
-      <Select name="spieler-select" options={spielerObjects} multi={true} />
-      <Select name="bahn-select" options={bahnObjects} multi={true} />
+      <Select name="anlage-select" options={anlageObjects} multi={true} closeOnSelect={false} value={props.selectedAnlagen} onChange={props.handleAnlagenChange}/>
+      <Select name="spieler-select" options={spielerObjects} multi={true} closeOnSelect={false} value={props.selectedSpieler} onChange={props.handleSpielerChange}/>
+      <Select name="bahn-select" options={bahnObjects} multi={true} closeOnSelect={false} value={props.selectedBahnen} onChange={props.handleBahnenChange}/>
     </div>
   );
 };
