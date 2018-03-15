@@ -12,11 +12,26 @@
   height: 100%;
   flex: 0 1 25%;
   background: #222;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 #pdf {
   height: 100%;
   flex: 0 1 75%;
   background: #999;
+}
+
+.dropzone {
+  width: 90%;
+  margin: 20px auto;
+}
+
+#OptionList {
+  width: 90%;
+  margin: 0 auto;
 }
 
