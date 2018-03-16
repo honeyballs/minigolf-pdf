@@ -4,14 +4,16 @@ import "./App.css";
 
 class App extends Component {
   initialState = {
-    data: [],
+    data: [{"anlage": "Freibad Wetzlar","datum": "2018-02-27","spieler" : "Karl Maier","bahnen": [1,1,2, 2,2,4, 2,2,2, 2,3,3, 3,3,1, 3,3,3]},{"anlage": "SG Arheilgen Miniaturgolf","datum": "2017-09-25","spieler" : "Johanna Jung","bahnen": [1,2,1, 1,1,1, 1,2,1, 1,1,1, 2,1,2, 1,5,2]}, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [2,2,1, 1,2,1, 1,1,1, 2,1,1, 2,2,1, 1,2,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,1,1, 1,2,2, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,2,1, 1,1,1, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [3,2,2, 1,5,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,2,1, 1,2,2, 2,5,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [2,2,2, 2,1,2, 1,4,1, 1,2,1, 2,1,1, 1,1,1] }],
     fileName: false,
     fileError: false,
     selectedAnlagen: [],
     selectedSpieler: [],
-    selectedBahnen: []
+    selectedBahnen: [],
+    selectedStatistics: []
   };
-  state = this.initialState
+  state = this.initialState;
+
 
   render() {
     return (
@@ -27,6 +29,9 @@ class App extends Component {
           handleSpielerChange={this.handleSpielerSelectChange}
           selectedBahnen={this.state.selectedBahnen}
           handleBahnenChange={this.handleBahnenSelectChange}
+          
+          selectedStatistics={this.state.selectedStatistics}
+          handleStatisticsChange={this.handleStatisticsChange}
         />
         <div id="pdf-container">
           <div id="pdf">
@@ -48,6 +53,10 @@ class App extends Component {
   handleBahnenSelectChange = value => {
     this.setState({ selectedBahnen: value });
   };
+  
+  handleStatisticsChange = value => {
+    this.setState({ selectedStatistics: value });
+  }
 
   loadFile = files => {
     if (!files.length) {

@@ -1,8 +1,10 @@
 import React from "react";
 import Dropzone from "react-dropzone";
 import OptionList from "./OptionList";
+import Statistics from "./statistics";
 
 const Sidebar = props => {
+    console.log(props);
   return (
     <div id="Sidebar">
       <h1>Minigolf PDF</h1>
@@ -26,6 +28,14 @@ const Sidebar = props => {
           handleBahnenChange={props.handleBahnenChange}
         />
       )}
+      <Statistics 
+        data={props.data} 
+        selectedStatistics={props.selectedStatistics} 
+        handleStatisticsChange={props.handleStatisticsChange}
+        selectedSpieler={props.selectedSpieler}
+        selectedAnlagen={props.selectedAnlagen}
+        selectedBahnen={props.selectedBahnen}
+      />
       <button onClick={evt => window.print()} style={btnPrintStyle}>Drucken</button>
     </div>
   );
