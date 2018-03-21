@@ -8,7 +8,7 @@ class Statistics extends React.Component {
 
         this.state = {
             statistics: [
-                {label: "Schläge pro Bahn", value: this.schlaegeProBahn.bind(this), spieler: 'SINGLE'},
+                {label: "Schläge pro Bahn", value: this.schlaegeProBahn.bind(this), spieler: 'SINGLE', anlagen: 'MULTI'},
                 {label: "Spieler pro Bahn", value: this.spielerProBahn.bind(this), spieler: 'MULTI'},
             ]
         };
@@ -27,7 +27,14 @@ class Statistics extends React.Component {
       let avg = [];
 
       //TODO: weitere Filter berücksichtigen
-      this.props.data.forEach(data=>{
+      this.props.data.filter(d=>{
+        //filter by anlage
+        if(this.props.selectedAnlagen.length){
+          let match = this.props.selectedAnlagen.filter(a=>a.value === d.anlage)
+          if(!match || !match.length) return false
+        }
+        return d
+      }).forEach(data=>{
         //filter by player
         if(this.props.selectedSpieler[0] && data.spieler !== this.props.selectedSpieler[0].value) return
         data.bahnen.forEach((score, index)=>{
@@ -48,6 +55,12 @@ class Statistics extends React.Component {
 
       let labelExt = ' (alle Spieler)'
       if(this.props.selectedSpieler[0]) labelExt = ' ('+this.props.selectedSpieler[0].value+')'
+      if(this.props.selectedAnlagen.length){
+        labelExt += ' auf'
+        this.props.selectedAnlagen.forEach(anlage=>{
+          labelExt += ' '+anlage.value
+        })
+      }
         var data = {
           labels: labels,
           datasets: [{
@@ -78,6 +91,7 @@ class Statistics extends React.Component {
 
       //TODO: weitere Filter berücksichtigen
       this.props.data.filter(d=>{
+        //filter by player
         if(this.props.selectedSpieler.length){
           let match = this.props.selectedSpieler.filter(s=>s.value === d.spieler)
           if(!match || !match.length) return false
