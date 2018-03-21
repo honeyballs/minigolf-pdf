@@ -9,6 +9,7 @@ class Statistics extends React.Component {
         this.state = {
             statistics: [
                 {label: "Schläge pro Bahn", value: this.schlaegeProBahn.bind(this), spieler: 'SINGLE'},
+                {label: "Spieler pro Bahn", value: this.spielerProBahn.bind(this), spieler: 'MULTI'},
             ]
         };
     }
@@ -16,6 +17,8 @@ class Statistics extends React.Component {
     onlyUnique(value, index, self) {
         return self.indexOf(value) === index;
     }
+
+    //TODO: generate colors for diagrams
 
     schlaegeProBahn() {
       let scores = [];
@@ -45,7 +48,6 @@ class Statistics extends React.Component {
 
       let labelExt = ' (alle Spieler)'
       if(this.props.selectedSpieler[0]) labelExt = ' ('+this.props.selectedSpieler[0].value+')'
-
         var data = {
           labels: labels,
           datasets: [{
@@ -68,6 +70,63 @@ class Statistics extends React.Component {
           desc: data,
           options: options,
         }
+    }
+
+    spielerProBahn() {
+      let players = {}
+      let labels = []
+
+      //TODO: weitere Filter berücksichtigen
+      this.props.data.filter(d=>{
+        if(this.props.selectedSpieler.length){
+          let match = this.props.selectedSpieler.filter(s=>s.value === d.spieler)
+          if(!match || !match.length) return false
+        }
+        return d
+      }).forEach(data=>{
+        if(!players[data.spieler]) players[data.spieler] = {scores:[], count:[], avg:[]}
+        let player = players[data.spieler]
+        data.bahnen.forEach((score, index)=>{
+          if(player.scores[index] !== undefined){
+            player.scores[index] += score
+            player.count[index] += 1
+          }else{
+            player.scores[index] = score
+            player.count[index] = 1
+          }
+          if(labels[index+1] === undefined) labels.push(index+1)
+        })
+        player.scores.forEach((score, index)=>{
+          player.avg[index] = score / player.count[index]
+        })
+      })
+
+      let datasets = []
+      Object.keys(players).forEach(key=>{
+        datasets.push({
+          label: key,
+          data: players[key].avg
+        })
+      })
+
+      var data = {
+        labels: labels,
+        datasets: datasets
+      }
+      let options = {
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+        }
+      }
+      return {
+        type: 'line',
+        desc: data,
+        options: options,
+      }
     }
 
     render() {
