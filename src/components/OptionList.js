@@ -27,14 +27,36 @@ const OptionList = props => {
   for (var i = 1; i < 19; i++) {
     bahnObjects = [...bahnObjects, {value: i, label: `Bahn ${i}`}];
   }
+
   return (
     <div id="OptionList">
-      <p>Anlagen</p>
-      <Select name="anlage-select" options={anlageObjects} multi={true} closeOnSelect={false} value={props.selectedAnlagen} onChange={props.handleAnlagenChange}/>
-      <p>Spieler</p>
-      <Select name="spieler-select" options={spielerObjects} multi={true} closeOnSelect={false} value={props.selectedSpieler} onChange={props.handleSpielerChange}/>
-      <p>Bahnen</p>
-      <Select name="bahn-select" options={bahnObjects} multi={true} closeOnSelect={false} value={props.selectedBahnen} onChange={props.handleBahnenChange}/>
+      {props.selectedStatistic.anlagen && (
+      <div className="select-wrap">
+        <p>Anlagen</p>
+        <Select name="anlage-select" options={anlageObjects}
+          multi={(props.selectedStatistic.anlagen == 'MULTI')}
+          closeOnSelect={!(props.selectedStatistic.anlagen == 'MULTI')}
+          value={(props.selectedStatistic.anlagen=='MULTI')?props.selectedAnlagen:props.selectedAnlagen[0]} onChange={props.handleAnlagenChange}/>
+      </div>
+      )}
+      {props.selectedStatistic.spieler && (
+      <div className="select-wrap">
+        <p>Spieler</p>
+        <Select name="spieler-select" options={spielerObjects}
+          multi={(props.selectedStatistic.spieler == 'MULTI')}
+          closeOnSelect={!(props.selectedStatistic.spieler == 'MULTI')}
+          value={(props.selectedStatistic.spieler=='MULTI')?props.selectedSpieler:props.selectedSpieler[0]} onChange={props.handleSpielerChange}/>
+      </div>
+      )}
+      {props.selectedStatistic.bahnen && (
+      <div className="select-wrap">
+        <p>Bahnen</p>
+        <Select name="bahn-select" options={bahnObjects}
+          multi={(props.selectedStatistic.bahnen == 'MULTI')}
+          closeOnSelect={!(props.selectedStatistic.bahnen == 'MULTI')}
+          value={(props.selectedStatistic.bahnen=='MULTI')?props.selectedBahnen:props.selectedBahnen[0]} onChange={props.handleBahnenChange}/>
+      </div>
+      )}
     </div>
   );
 };

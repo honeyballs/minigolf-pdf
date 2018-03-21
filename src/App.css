@@ -34,8 +34,12 @@
   color: red;
 }
 
-#OptionList, #StatisticsList {
+#stats-area {
   width: 90%;
+}
+
+#OptionList, #StatisticsList {
+  width: 100%;
   margin: 0 auto;
   text-align: left;
 }

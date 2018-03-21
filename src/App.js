@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar";
+import PDF from './components/pdf';
 import "./App.css";
 
 class App extends Component {
@@ -10,7 +11,8 @@ class App extends Component {
     selectedAnlagen: [],
     selectedSpieler: [],
     selectedBahnen: [],
-    selectedStatistics: []
+    selectedStatistic: false,
+    diagrams: []
   };
   state = this.initialState;
 
@@ -29,33 +31,57 @@ class App extends Component {
           handleSpielerChange={this.handleSpielerSelectChange}
           selectedBahnen={this.state.selectedBahnen}
           handleBahnenChange={this.handleBahnenSelectChange}
-          
-          selectedStatistics={this.state.selectedStatistics}
-          handleStatisticsChange={this.handleStatisticsChange}
+          selectedStatistic={this.state.selectedStatistic}
+          handleStatisticChange={this.handleStatisticChange}
+          addDiagram={this.addDiagram}
         />
         <div id="pdf-container">
-          <div id="pdf">
-            {this.state.data.map(item => <p>{item.spieler}</p>)}
-          </div>
+          <PDF diagrams={this.state.diagrams}/>
         </div>
       </div>
     );
   }
 
+  addDiagram = value => {
+    if(!this.state.selectedStatistic){
+      console.log("no diagram selected")
+      return
+    }
+    let newDiagram = this.state.selectedStatistic.value();
+    let newDiagrams = this.state.diagrams;
+    newDiagrams.push(newDiagram)
+    this.setState({diagrams:newDiagrams})
+  }
+
   handleAnlagenSelectChange = value => {
-    this.setState({ selectedAnlagen: value });
+    let newval = value;
+    if(this.state.selectedStatistic && !(this.state.selectedStatistic.anlagen === 'MULTI')){
+      newval = []
+      newval.push(value)
+    }
+    this.setState({ selectedAnlagen: newval });
   };
 
   handleSpielerSelectChange = value => {
-    this.setState({ selectedSpieler: value });
+    let newval = value;
+    if(this.state.selectedStatistic && !(this.state.selectedStatistic.spieler === 'MULTI')){
+      newval = []
+      newval.push(value)
+    }
+    this.setState({ selectedSpieler: newval });
   };
 
   handleBahnenSelectChange = value => {
-    this.setState({ selectedBahnen: value });
+    let newval = value;
+    if(this.state.selectedStatistic && !(this.state.selectedStatistic.bahnen === 'MULTI')){
+      newval = []
+      newval.push(value)
+    }
+    this.setState({ selectedBahnen: newval });
   };
-  
-  handleStatisticsChange = value => {
-    this.setState({ selectedStatistics: value });
+
+  handleStatisticChange = value => {
+    this.setState({ selectedStatistic: value });
   }
 
   loadFile = files => {

@@ -4,7 +4,6 @@ import OptionList from "./OptionList";
 import Statistics from "./statistics";
 
 const Sidebar = props => {
-    console.log(props);
   return (
     <div id="Sidebar">
       <h1>Minigolf PDF</h1>
@@ -18,24 +17,30 @@ const Sidebar = props => {
         </Dropzone>
       </div>
       {props.data.length > 0 && (
-        <OptionList
-          data={props.data}
-          selectedAnlagen={props.selectedAnlagen}
-          handleAnlagenChange={props.handleAnlagenChange}
-          selectedSpieler={props.selectedSpieler}
-          handleSpielerChange={props.handleSpielerChange}
-          selectedBahnen={props.selectedBahnen}
-          handleBahnenChange={props.handleBahnenChange}
-        />
+        <div id="stats-area">
+          <Statistics
+            data={props.data}
+            selectedStatistic={props.selectedStatistic}
+            handleStatisticChange={props.handleStatisticChange}
+            selectedSpieler={props.selectedSpieler}
+            selectedAnlagen={props.selectedAnlagen}
+            selectedBahnen={props.selectedBahnen}
+          />
+          {props.selectedStatistic && (
+            <OptionList
+              data={props.data}
+              selectedAnlagen={props.selectedAnlagen}
+              handleAnlagenChange={props.handleAnlagenChange}
+              selectedSpieler={props.selectedSpieler}
+              handleSpielerChange={props.handleSpielerChange}
+              selectedBahnen={props.selectedBahnen}
+              handleBahnenChange={props.handleBahnenChange}
+              selectedStatistic={props.selectedStatistic}
+            />
+          )}
+        </div>
       )}
-      <Statistics 
-        data={props.data} 
-        selectedStatistics={props.selectedStatistics} 
-        handleStatisticsChange={props.handleStatisticsChange}
-        selectedSpieler={props.selectedSpieler}
-        selectedAnlagen={props.selectedAnlagen}
-        selectedBahnen={props.selectedBahnen}
-      />
+      <button onClick={props.addDiagram}>Hinzufügen</button>
       <button onClick={evt => window.print()} style={btnPrintStyle}>Drucken</button>
     </div>
   );
