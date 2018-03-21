@@ -12,7 +12,8 @@ class App extends Component {
     selectedSpieler: [],
     selectedBahnen: [],
     selectedStatistic: false,
-    diagrams: []
+    diagrams: [],
+    preview: false,
   };
   state = this.initialState;
 
@@ -34,9 +35,10 @@ class App extends Component {
           selectedStatistic={this.state.selectedStatistic}
           handleStatisticChange={this.handleStatisticChange}
           addDiagram={this.addDiagram}
+          doPrint={this.doPrint}
         />
         <div id="pdf-container">
-          <PDF diagrams={this.state.diagrams}/>
+          <PDF diagrams={this.state.diagrams} selectedStatistic={this.state.selectedStatistic} preview={this.state.preview}/>
         </div>
       </div>
     );
@@ -50,7 +52,12 @@ class App extends Component {
     let newDiagram = this.state.selectedStatistic.value();
     let newDiagrams = this.state.diagrams;
     newDiagrams.push(newDiagram)
-    this.setState({diagrams:newDiagrams})
+    this.setState({...this.initialState, diagrams:newDiagrams})
+  }
+
+  updatePreview = value => {
+    let preview = this.state.selectedStatistic.value()
+    this.setState({preview: preview})
   }
 
   handleAnlagenSelectChange = value => {
@@ -59,7 +66,9 @@ class App extends Component {
       newval = []
       newval.push(value)
     }
-    this.setState({ selectedAnlagen: newval });
+    this.setState({ selectedAnlagen: newval}, ()=>{
+      this.updatePreview()
+    });
   };
 
   handleSpielerSelectChange = value => {
@@ -68,7 +77,9 @@ class App extends Component {
       newval = []
       newval.push(value)
     }
-    this.setState({ selectedSpieler: newval });
+    this.setState({ selectedSpieler: newval}, ()=>{
+      this.updatePreview()
+    });
   };
 
   handleBahnenSelectChange = value => {
@@ -77,11 +88,15 @@ class App extends Component {
       newval = []
       newval.push(value)
     }
-    this.setState({ selectedBahnen: newval });
+    this.setState({ selectedBahnen: newval}, ()=>{
+      this.updatePreview()
+    });
   };
 
   handleStatisticChange = value => {
-    this.setState({ selectedStatistic: value });
+    let preview = false
+    if(value) preview = value.value()
+    this.setState({ selectedStatistic: value, preview: preview });
   }
 
   loadFile = files => {
@@ -115,6 +130,12 @@ class App extends Component {
       this.setState({...this.initialState, fileError: 'the file APIs are not fully supported in this browser!'});
     }
   };
+
+  doPrint = value => {
+    this.setState({selectedStatistic: false},()=>{
+      setTimeout(()=>{window.print()},500)
+    })
+  }
 }
 
 export default App;

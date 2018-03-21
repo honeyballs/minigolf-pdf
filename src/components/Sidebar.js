@@ -41,7 +41,7 @@ const Sidebar = props => {
         </div>
       )}
       <button onClick={props.addDiagram}>Hinzufügen</button>
-      <button onClick={evt => window.print()} style={btnPrintStyle}>Drucken</button>
+      <button onClick={evt => props.doPrint()} style={btnPrintStyle}>Drucken</button>
     </div>
   );
 };
