@@ -54,7 +54,9 @@
 
 #pdf {
   width: 90%;
-  width: 518.3pt;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
   margin: 20px auto 0;
   background: #fff;
   -webkit-box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
@@ -62,8 +64,33 @@
   box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
 }
 
-canvas {
-    margin: 5pt 0;
+#live-preview, #pdf-content {
+  width: 90%;
+  margin: 20px auto;
+}
+
+#sidebar-buttons {
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+#sidebar-buttons > button {
+  font-size: 1.2em;
+  color: #fff;
+  background: #222;
+  border: 1px solid #fff;
+  padding: 5px;
+  cursor: pointer;
+}
+
+#sidebar-buttons > button:hover {
+  color: #222;
+  background: #fff;
+  border: 1px solid #222;
 }
 
 @media print {

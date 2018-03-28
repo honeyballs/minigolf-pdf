@@ -34,27 +34,27 @@ const OptionList = props => {
       <div className="select-wrap">
         <p>Anlagen</p>
         <Select name="anlage-select" options={anlageObjects}
-          multi={(props.selectedStatistic.anlagen == 'MULTI')}
-          closeOnSelect={!(props.selectedStatistic.anlagen == 'MULTI')}
-          value={(props.selectedStatistic.anlagen=='MULTI')?props.selectedAnlagen:props.selectedAnlagen[0]} onChange={props.handleAnlagenChange}/>
+          multi={(props.selectedStatistic.anlagen === 'MULTI')}
+          closeOnSelect={!(props.selectedStatistic.anlagen === 'MULTI')}
+          value={(props.selectedStatistic.anlagen==='MULTI')?props.selectedAnlagen:props.selectedAnlagen[0]} onChange={props.handleAnlagenChange}/>
       </div>
       )}
       {props.selectedStatistic.spieler && (
       <div className="select-wrap">
         <p>Spieler</p>
         <Select name="spieler-select" options={spielerObjects}
-          multi={(props.selectedStatistic.spieler == 'MULTI')}
-          closeOnSelect={!(props.selectedStatistic.spieler == 'MULTI')}
-          value={(props.selectedStatistic.spieler=='MULTI')?props.selectedSpieler:props.selectedSpieler[0]} onChange={props.handleSpielerChange}/>
+          multi={(props.selectedStatistic.spieler === 'MULTI')}
+          closeOnSelect={!(props.selectedStatistic.spieler === 'MULTI')}
+          value={(props.selectedStatistic.spieler==='MULTI')?props.selectedSpieler:props.selectedSpieler[0]} onChange={props.handleSpielerChange}/>
       </div>
       )}
       {props.selectedStatistic.bahnen && (
       <div className="select-wrap">
         <p>Bahnen</p>
         <Select name="bahn-select" options={bahnObjects}
-          multi={(props.selectedStatistic.bahnen == 'MULTI')}
-          closeOnSelect={!(props.selectedStatistic.bahnen == 'MULTI')}
-          value={(props.selectedStatistic.bahnen=='MULTI')?props.selectedBahnen:props.selectedBahnen[0]} onChange={props.handleBahnenChange}/>
+          multi={(props.selectedStatistic.bahnen === 'MULTI')}
+          closeOnSelect={!(props.selectedStatistic.bahnen === 'MULTI')}
+          value={(props.selectedStatistic.bahnen==='MULTI')?props.selectedBahnen:props.selectedBahnen[0]} onChange={props.handleBahnenChange}/>
       </div>
       )}
     </div>
