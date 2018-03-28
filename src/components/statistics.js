@@ -10,6 +10,7 @@ class Statistics extends React.Component {
             statistics: [
                 {label: "Schläge pro Bahn", value: this.schlaegeProBahn.bind(this), spieler: 'SINGLE', anlagen: 'MULTI'},
                 {label: "Spieler pro Bahn", value: this.spielerProBahn.bind(this), spieler: 'MULTI'},
+                {label: "Ergebnisse über Zeit", value: this.ergebnisseUeberZeit.bind(this), spieler: 'SINGLE'}
             ]
         };
     }
@@ -133,6 +134,73 @@ class Statistics extends React.Component {
               ticks: {
                   beginAtZero: true
               }
+          }]
+        }
+      }
+      return {
+        type: 'line',
+        desc: data,
+        options: options,
+      }
+    }
+
+    ergebnisseUeberZeit() {
+      let spieler = this.props.selectedSpieler[0]
+      if(!spieler){
+        //TODO: default select first spieler and reassign
+        return
+      }
+
+      let results = this.props.data.filter(d=>{
+        return d.spieler == spieler.value
+      })
+
+
+      let months = {}
+
+      results.sort((a,b)=>{
+        let aD = new Date(a.datum)
+        let bD = new Date(b.datum)
+        return aD.getTime() > bD.getTime()
+      })
+
+      results.forEach(res=>{
+        let total = 0
+        res.bahnen.forEach(bahn=>{total+=bahn})
+        let d = new Date(res.datum)
+        //TODO: month add leading 0
+        let str = (d.getMonth()+1)+'.'+d.getFullYear()
+        if(months[str]){
+          months[str].total += total
+          months[str].count += 1
+        }else{
+          months[str] = {total: total, count: 1}
+        }
+      })
+
+
+      let labels = []
+      let datasets = []
+      let spielerData = []
+      Object.keys(months).forEach(key => {
+        labels.push(key)
+        spielerData.push(months[key].total/months[key].count)
+      })
+
+      datasets.push({
+        label: spieler.value,
+        data: spielerData
+      })
+
+      //TODO: yAchse Puffer nach oben und unten. xAchse auch Puffern wenn möglich, sieht blod aus wenn nur 1 eintrag vorhanden
+      var data = {
+        labels: labels,
+        datasets: datasets
+      }
+      let options = {
+        scales: {
+          yAxes: [{
+
           }]
         }
       }
