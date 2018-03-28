@@ -30,6 +30,10 @@ const OptionList = props => {
 
   return (
     <div id="OptionList">
+      <div className="select-wrap">
+        <p>Titel</p>
+        <input id="title-input" type="text" value={props.title?props.title:''} onChange={props.handleTitleChange} />
+      </div>
       {props.selectedStatistic.anlagen && (
       <div className="select-wrap">
         <p>Anlagen</p>

@@ -8,6 +8,7 @@ class App extends Component {
     data: [{"anlage": "Freibad Wetzlar","datum": "2018-02-27","spieler" : "Karl Maier","bahnen": [1,1,2, 2,2,4, 2,2,2, 2,3,3, 3,3,1, 3,3,3]},{"anlage": "SG Arheilgen Miniaturgolf","datum": "2017-09-25","spieler" : "Johanna Jung","bahnen": [1,2,1, 1,1,1, 1,2,1, 1,1,1, 2,1,2, 1,5,2]}, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-04-23", "spieler" : "Johanna Jung", "bahnen": [2,2,1, 1,2,1, 1,1,1, 2,1,1, 2,2,1, 1,2,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,1,1, 1,2,2, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-02-01", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,2,1, 1,1,1, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [3,2,2, 1,5,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,2,1, 1,2,2, 2,5,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [2,2,2, 2,1,2, 1,4,1, 1,2,1, 2,1,1, 1,1,1] }],
     fileName: false,
     fileError: false,
+    title: false,
     selectedAnlagen: [],
     selectedSpieler: [],
     selectedBahnen: [],
@@ -26,6 +27,8 @@ class App extends Component {
           data={this.state.data}
           fileName={this.state.fileName}
           fileError={this.state.fileError}
+          title={this.state.title}
+          handleTitleChange={this.handleTitleChange}
           selectedAnlagen={this.state.selectedAnlagen}
           handleAnlagenChange={this.handleAnlagenSelectChange}
           selectedSpieler={this.state.selectedSpieler}
@@ -58,6 +61,12 @@ class App extends Component {
   updatePreview = value => {
     let preview = this.state.selectedStatistic.value()
     this.setState({preview: preview})
+  }
+
+  handleTitleChange = event => {
+      this.setState({title: event.target.value}, ()=>{
+        this.updatePreview()
+      })
   }
 
   handleAnlagenSelectChange = value => {
@@ -118,6 +127,7 @@ class App extends Component {
             data: data,
             fileName: file.name,
             fileError: false,
+            title: false,
             selectedAnlagen: [],
             selectedSpieler: [],
             selectedBahnen: [] });

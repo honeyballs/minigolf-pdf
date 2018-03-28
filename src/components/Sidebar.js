@@ -20,6 +20,7 @@ const Sidebar = props => {
         <div id="stats-area">
           <Statistics
             data={props.data}
+            title={props.title}
             selectedStatistic={props.selectedStatistic}
             handleStatisticChange={props.handleStatisticChange}
             selectedSpieler={props.selectedSpieler}
@@ -29,6 +30,8 @@ const Sidebar = props => {
           {props.selectedStatistic && (
             <OptionList
               data={props.data}
+              title={props.title}
+              handleTitleChange={props.handleTitleChange}
               selectedAnlagen={props.selectedAnlagen}
               handleAnlagenChange={props.handleAnlagenChange}
               selectedSpieler={props.selectedSpieler}

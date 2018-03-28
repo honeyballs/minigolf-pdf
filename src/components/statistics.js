@@ -79,7 +79,10 @@ class Statistics extends React.Component {
             }]
           }
         }
+        let title = 'Schläge pro Bahn'
+        if(this.props.title && this.props.title.length) title = this.props.title
         return {
+          title: title,
           type: 'bar',
           desc: data,
           options: options,
@@ -137,7 +140,11 @@ class Statistics extends React.Component {
           }]
         }
       }
+
+      let title = 'Spieler pro Bahn'
+      if(this.props.title && this.props.title.length) title = this.props.title
       return {
+        title: title,
         type: 'line',
         desc: data,
         options: options,
@@ -204,7 +211,11 @@ class Statistics extends React.Component {
           }]
         }
       }
+
+      let title = 'Ergebnisse über Zeit'
+      if(this.props.title && this.props.title.length) title = this.props.title
       return {
+        title: title,
         type: 'line',
         desc: data,
         options: options,
