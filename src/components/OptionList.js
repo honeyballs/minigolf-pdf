@@ -30,10 +30,6 @@ const OptionList = props => {
 
   return (
     <div id="OptionList">
-      <div className="select-wrap">
-        <p>Titel</p>
-        <input id="title-input" type="text" value={props.title?props.title:''} onChange={props.handleTitleChange} />
-      </div>
       {props.selectedStatistic.anlagen && (
       <div className="select-wrap">
         <p>Anlagen</p>
@@ -61,6 +57,18 @@ const OptionList = props => {
           value={(props.selectedStatistic.bahnen==='MULTI')?props.selectedBahnen:props.selectedBahnen[0]} onChange={props.handleBahnenChange}/>
       </div>
       )}
+
+      <span id="advanced-options-toggle" onClick={()=>{props.setShowAdvancedOptions()}}>{props.showAdvancedOptions?'-':'+'} (erweitert)</span>
+      {props.showAdvancedOptions && (<div className="advanced-options">
+        <div className="select-wrap">
+          <p>Titel</p>
+          <input id="title-input" type="text" value={props.title?props.title:''} onChange={props.handleTitleChange} />
+        </div>
+        <div className="select-wrap">
+          <p>Abstand nach unten(px)</p>
+          <input id="bottom-space-input" type="number" value={props.bottomSpace} onChange={props.handleBottomSpaceChange} />
+        </div>
+      </div>)}
     </div>
   );
 };

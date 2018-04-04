@@ -69,6 +69,11 @@
   margin: 20px auto;
 }
 
+#advanced-options-toggle {
+  margin-top: 15px;
+  display: inline-block;
+}
+
 #sidebar-buttons {
   margin-top: 10px;
   width: 100%;
@@ -93,7 +98,7 @@
   border: 1px solid #222;
 }
 
-#title-input {
+#title-input, #bottom-space-input {
   line-height: 34px;
   border-radius: 4px;
   border: 1px solid #ccc;

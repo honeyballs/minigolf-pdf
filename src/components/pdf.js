@@ -5,6 +5,8 @@ import Diagram from './Diagram'
 
 const PDF = props => {
 
+  //TODO: CSS add dinA4 hint
+
   return (
     <div id="pdf">
       {(props.selectedStatistic && props.preview)? (
@@ -17,7 +19,7 @@ const PDF = props => {
           </div>
         </div>
       ) : <div id="pdf-content">{props.diagrams.map((d, index) =>
-        <div className="diagram-item">
+        <div className="diagram-item" style={ {marginBottom: (d.bottomSpace? d.bottomSpace+'px' : false)} }>
           <h3>{d.title}</h3>
           <Diagram key={index} type={d.type} desc={d.desc} options={d.options}/>
         </div>
