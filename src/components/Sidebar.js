@@ -26,6 +26,7 @@ const Sidebar = props => {
             selectedSpieler={props.selectedSpieler}
             selectedAnlagen={props.selectedAnlagen}
             selectedBahnen={props.selectedBahnen}
+            colors={props.colors}
           />
           {props.selectedStatistic && (
             <OptionList

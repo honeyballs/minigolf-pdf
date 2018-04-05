@@ -22,6 +22,8 @@ class Statistics extends React.Component {
     //TODO: generate colors for diagrams
 
     schlaegeProBahn() {
+      console.log(this.props);
+
       let scores = [];
       let count = [];
       let labels = [];
@@ -68,11 +70,36 @@ class Statistics extends React.Component {
               label: '⌀ Anzahl der Schläge'+labelExt,
               data: avg,
               borderWidth: 1
-          }]
+          },{
+            label: false,
+            data: avg,
+            borderWidth: 1
+        }]
         }
+
+        console.log();
+        if(this.props.selectedSpieler.length){
+          /*var colors = [];
+          console.log(this.props.colors);
+          this.props.selectedSpieler.forEach(spieler => {
+            if(spieler){
+              colors.push(this.props.colors[spieler.label]);
+            }
+            
+          });*/
+
+          console.log(this.props.colors[this.props.selectedSpieler[0]]);
+          data.datasets[0].backgroundColor = this.props.colors[this.props.selectedSpieler[0]];
+        }
+        console.log(data);
+
         let options = {
           scales: {
+            xAxes: [{
+              stacked: true
+          }],
             yAxes: [{
+              stacked: true,
                 ticks: {
                     beginAtZero: true
                 }

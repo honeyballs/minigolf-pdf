@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar";
 import PDF from './components/pdf';
+
+import distinctColors from 'distinct-colors';
+
 import "./App.css";
 
 class App extends Component {
   initialState = {
-    data: [{"anlage": "Freibad Wetzlar","datum": "2018-02-27","spieler" : "Karl Maier","bahnen": [1,1,2, 2,2,4, 2,2,2, 2,3,3, 3,3,1, 3,3,3]},{"anlage": "SG Arheilgen Miniaturgolf","datum": "2017-09-25","spieler" : "Johanna Jung","bahnen": [1,2,1, 1,1,1, 1,2,1, 1,1,1, 2,1,2, 1,5,2]}, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-04-23", "spieler" : "Johanna Jung", "bahnen": [2,2,1, 1,2,1, 1,1,1, 2,1,1, 2,2,1, 1,2,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,1,1, 1,2,2, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-02-01", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,2,1, 1,1,1, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [3,2,2, 1,5,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,2,1, 1,2,2, 2,5,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [2,2,2, 2,1,2, 1,4,1, 1,2,1, 2,1,1, 1,1,1] }],
+    data: this.defaultData(),
     fileName: false,
     fileError: false,
     showAdvancedOptions: false,
@@ -17,16 +20,18 @@ class App extends Component {
     selectedStatistic: false,
     diagrams: [],
     preview: false,
+    colors: this.playerColors(this.defaultData())
   };
   state = this.initialState;
 
-
+         
   render() {
     return (
       <div className="App">
         <Sidebar
           loadFile={this.loadFile}
           data={this.state.data}
+          colors={this.state.colors}
           fileName={this.state.fileName}
           fileError={this.state.fileError}
           showAdvancedOptions={this.state.showAdvancedOptions}
@@ -51,6 +56,33 @@ class App extends Component {
         </div>
       </div>
     );
+  }
+  
+  defaultData() {
+      var data = [{"anlage": "Freibad Wetzlar","datum": "2018-02-27","spieler" : "Karl Maier","bahnen": [1,1,2, 2,2,4, 2,2,2, 2,3,3, 3,3,1, 3,3,3]},{"anlage": "SG Arheilgen Miniaturgolf","datum": "2017-09-25","spieler" : "Johanna Jung","bahnen": [1,2,1, 1,1,1, 1,2,1, 1,1,1, 2,1,2, 1,5,2]}, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-04-23", "spieler" : "Johanna Jung", "bahnen": [2,2,1, 1,2,1, 1,1,1, 2,1,1, 2,2,1, 1,2,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,1,1, 1,2,2, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-02-01", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,2,1, 1,1,1, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [3,2,2, 1,5,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,2,1, 1,2,2, 2,5,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [2,2,2, 2,1,2, 1,4,1, 1,2,1, 2,1,1, 1,1,1] }];
+      
+      return data;
+  }
+    
+  playerColors(data) {
+    //Get all Player
+    var playerColors = {};
+    data.forEach(spiel => {
+      if(!playerColors.hasOwnProperty(spiel.spieler)){
+        playerColors[spiel.spieler] = null;
+      }
+    });
+    //Generate a distinct color for every Player
+    var palette = distinctColors({count: Object.keys(playerColors).length});
+    //Add a color to every Player
+    var i = 0;
+    for (var player in playerColors) {
+      console.log({[player]: palette[i]});
+      playerColors[player] = palette[i];
+      i++;
+    };
+    console.log(playerColors);  
+    return playerColors;
   }
 
   addDiagram = value => {
@@ -145,7 +177,8 @@ class App extends Component {
             title: false,
             selectedAnlagen: [],
             selectedSpieler: [],
-            selectedBahnen: [] });
+            selectedBahnen: [],
+            colors: this.playerColors(data) });
         } catch (err) {
           this.setState({...this.initialState, fileError: 'error parsing the json! (check https://jsonlint.com/)'});
         }
