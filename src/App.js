@@ -77,11 +77,9 @@ class App extends Component {
     //Add a color to every Player
     var i = 0;
     for (var player in playerColors) {
-      console.log({[player]: palette[i]});
       playerColors[player] = palette[i];
       i++;
     };
-    console.log(playerColors);  
     return playerColors;
   }
 
