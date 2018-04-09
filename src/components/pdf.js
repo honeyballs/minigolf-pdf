@@ -11,7 +11,7 @@ const PDF = props => {
     <div id="pdf">
       {(props.selectedStatistic && props.preview)? (
         <div id="live-preview">
-          <h2>Vorschau:</h2>
+          <h2>Diagramm-Vorschau:</h2>
           <p>Bitte klicken Sie "Hinzufügen", um das Diagramm in das PDF einzufügen.</p>
           <div className="diagram-item">
             <h3>{props.preview.title}</h3>
