@@ -10,7 +10,7 @@ class Statistics extends React.Component {
             statistics: [
                 {label: "Schläge pro Bahn", value: this.schlaegeProBahn.bind(this), spieler: 'SINGLE', anlagen: 'MULTI'},
                 {label: "Spieler pro Bahn", value: this.spielerProBahn.bind(this), spieler: 'MULTI'},
-                {label: "Ergebnisse über Zeit", value: this.ergebnisseUeberZeit.bind(this), spieler: 'SINGLE'}
+                {label: "Ergebnisse pro Monat", value: this.ergebnisseProMonat.bind(this), spieler: 'SINGLE'}
             ]
         };
     }
@@ -85,7 +85,7 @@ class Statistics extends React.Component {
             if(spieler){
               colors.push(this.props.colors[spieler.label]);
             }
-            
+
           });*/
 
           console.log(this.props.colors[this.props.selectedSpieler[0]]);
@@ -178,7 +178,7 @@ class Statistics extends React.Component {
       }
     }
 
-    ergebnisseUeberZeit() {
+    ergebnisseProMonat() {
       let spieler = this.props.selectedSpieler[0]
       if(!spieler){
         //TODO: default select first spieler and reassign
@@ -239,7 +239,7 @@ class Statistics extends React.Component {
         }
       }
 
-      let title = 'Ergebnisse über Zeit'
+      let title = 'Schläge/Spiel je Monat'
       if(this.props.title && this.props.title.length) title = this.props.title
       return {
         title: title,
