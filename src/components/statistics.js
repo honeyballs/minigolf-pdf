@@ -22,7 +22,6 @@ class Statistics extends React.Component {
     //TODO: generate colors for diagrams
 
     schlaegeProBahn() {
-      console.log(this.props);
 
       let scores = [];
       let count = [];
@@ -70,28 +69,14 @@ class Statistics extends React.Component {
               label: '⌀ Anzahl der Schläge'+labelExt,
               data: avg,
               borderWidth: 1
-          },{
-            label: false,
-            data: avg,
-            borderWidth: 1
-        }]
+          }]
         }
 
-        console.log();
         if(this.props.selectedSpieler.length){
-          /*var colors = [];
-          console.log(this.props.colors);
-          this.props.selectedSpieler.forEach(spieler => {
-            if(spieler){
-              colors.push(this.props.colors[spieler.label]);
-            }
-
-          });*/
-
-          console.log(this.props.colors[this.props.selectedSpieler[0]]);
-          data.datasets[0].backgroundColor = this.props.colors[this.props.selectedSpieler[0]];
+          if(this.props.selectedSpieler[0]){
+            data.datasets[0].backgroundColor = this.props.colors[this.props.selectedSpieler[0].label];
+          }
         }
-        console.log(data);
 
         let options = {
           scales: {
@@ -123,7 +108,7 @@ class Statistics extends React.Component {
       //TODO: weitere Filter berücksichtigen
       this.props.data.filter(d=>{
         //filter by player
-        if(this.props.selectedSpieler.length){
+        if(this.props.selectedSpieler.length && this.props.selectedSpieler[0]){
           let match = this.props.selectedSpieler.filter(s=>s.value === d.spieler)
           if(!match || !match.length) return false
         }
@@ -150,7 +135,10 @@ class Statistics extends React.Component {
       Object.keys(players).forEach(key=>{
         datasets.push({
           label: key,
-          data: players[key].avg
+          data: players[key].avg,
+          borderColor: this.props.colors[key],
+          backgroundColor: this.props.colors[key],
+          fill: false
         })
       })
 
@@ -223,13 +211,17 @@ class Statistics extends React.Component {
 
       datasets.push({
         label: spieler.value,
-        data: spielerData
+        data: spielerData,
+        borderColor: this.props.colors[spieler.label],
+        backgroundColor: this.props.colors[spieler.label],
+        fill: false
       })
 
       //TODO: yAchse Puffer nach oben und unten. xAchse auch Puffern wenn möglich, sieht blod aus wenn nur 1 eintrag vorhanden
       var data = {
         labels: labels,
-        datasets: datasets
+        datasets: datasets,
+
       }
       let options = {
         scales: {
