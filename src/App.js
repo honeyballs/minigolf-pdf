@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar";
 import PDF from './components/pdf';
+import Editor from './components/Editor';
 
 import distinctColors from 'distinct-colors';
 
@@ -20,7 +21,8 @@ class App extends Component {
     selectedStatistic: false,
     diagrams: [],
     preview: false,
-    colors: this.playerColors(this.defaultData())
+    colors: this.playerColors(this.defaultData()),
+    showEditor: false
   };
   state = this.initialState;
 
@@ -52,6 +54,7 @@ class App extends Component {
           doPrint={this.doPrint}
         />
         <div id="pdf-container">
+          {this.state.data.showEditor && (<Editor data={this.state.data} updateJSON={this.updateJSON}/>)}
           <PDF diagrams={this.state.diagrams} selectedStatistic={this.state.selectedStatistic} preview={this.state.preview}/>
         </div>
       </div>
@@ -81,6 +84,10 @@ class App extends Component {
       i++;
     };
     return playerColors;
+  }
+
+  updateJSON = json => {
+    this.setState=({data: json});
   }
 
   addDiagram = value => {
