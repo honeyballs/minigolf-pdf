@@ -75,6 +75,7 @@
 }
 
 #sidebar-buttons {
+  min-height: 70px;
   margin-top: 10px;
   width: 100%;
   display: flex;
