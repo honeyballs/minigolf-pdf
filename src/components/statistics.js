@@ -124,7 +124,7 @@ class Statistics extends React.Component {
             player.scores[index] = score
             player.count[index] = 1
           }
-          if(labels[index+1] === undefined) labels.push(index+1)
+          if(labels[index] === undefined) labels.push(index+1)
         })
         player.scores.forEach((score, index)=>{
           player.avg[index] = score / player.count[index]
