@@ -48,12 +48,12 @@
   height: 100%;
   flex: 0 1 75%;
   background: #999;
-  overflow-x: hidden;
+  overflow-x: auto;
   overflow-y: auto;
 }
 
 #pdf {
-  width: 595pt;
+  width: 90%;
   height: 100%;
   overflow-y: auto;
   overflow-x: hidden;
@@ -65,7 +65,7 @@
 }
 
 #live-preview, #pdf-content {
-  width: 595.3pt;
+  width: 90%;
   margin: 20px auto;
 }
 
