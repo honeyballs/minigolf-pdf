@@ -75,6 +75,7 @@
 }
 
 #sidebar-buttons {
+  min-height: 70px;
   margin-top: 10px;
   width: 100%;
   display: flex;
@@ -127,5 +128,13 @@
 
   .diagram-item {
     page-break-inside: avoid;
+    height: 45vh;
   }
+
+  @media print and (orientation: landscape){
+    .diagram-item {
+      height: 100%;
+    }
+  }
+
 }
