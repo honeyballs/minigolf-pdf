@@ -127,5 +127,13 @@
 
   .diagram-item {
     page-break-inside: avoid;
+    height: 45vh;
   }
+
+  @media print and (orientation: landscape){
+    .diagram-item {
+      height: 100%;
+    }
+  }
+
 }
