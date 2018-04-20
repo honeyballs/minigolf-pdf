@@ -46,11 +46,12 @@ const Sidebar = props => {
           )}
         </div>
       )}
-
+      {(props.data.length != 0) && (
       <div id="sidebar-buttons">
         {props.selectedStatistic && (<button onClick={props.addDiagram}>Hinzufügen</button>)}
         <button onClick={evt => props.doPrint()} style={btnPrintStyle}>Drucken</button>
       </div>
+      )}
     </div>
   );
 };
