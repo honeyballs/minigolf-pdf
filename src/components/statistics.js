@@ -197,9 +197,16 @@ class Statistics extends React.Component {
       let datasets = []
       let labels = []
       Object.keys(games).forEach(key=>{
+        let koord = []
+        games[key].score.forEach((k,v)=> {
+          koord.push({
+            x: games[key].date[v],
+            y: games[key].score[v]
+          })
+        })
         datasets.push({
           label: key,
-          data: games[key].score,
+          data: koord,
           borderColor: this.props.colors[key],
           backgroundColor: this.props.colors[key],
           fill: false
@@ -216,6 +223,7 @@ class Statistics extends React.Component {
         datasets: datasets,
 
       }
+
       let options = {
         scales: {
           xAxes: [{
