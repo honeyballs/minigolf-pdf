@@ -35,8 +35,6 @@ const Sidebar = props => {
               setShowAdvancedOptions={props.setShowAdvancedOptions}
               title={props.title}
               handleTitleChange={props.handleTitleChange}
-              bottomSpace={props.bottomSpace}
-              handleBottomSpaceChange={props.handleBottomSpaceChange}
               selectedAnlagen={props.selectedAnlagen}
               handleAnlagenChange={props.handleAnlagenChange}
               selectedSpieler={props.selectedSpieler}

@@ -14,7 +14,6 @@ class App extends Component {
     fileError: false,
     showAdvancedOptions: false,
     title: false,
-    bottomSpace: 0,
     selectedAnlagen: [],
     selectedSpieler: [],
     selectedBahnen: [],
@@ -26,7 +25,7 @@ class App extends Component {
   };
   state = this.initialState;
 
-         
+
   render() {
     return (
       <div className="App">
@@ -40,8 +39,6 @@ class App extends Component {
           setShowAdvancedOptions={this.setShowAdvancedOptions}
           title={this.state.title}
           handleTitleChange={this.handleTitleChange}
-          bottomSpace={this.state.bottomSpace}
-          handleBottomSpaceChange={this.handleBottomSpaceChange}
           selectedAnlagen={this.state.selectedAnlagen}
           handleAnlagenChange={this.handleAnlagenSelectChange}
           selectedSpieler={this.state.selectedSpieler}
@@ -60,13 +57,13 @@ class App extends Component {
       </div>
     );
   }
-  
+
   defaultData() {
       var data = [{"anlage": "Freibad Wetzlar","datum": "2018-02-27","spieler" : "Karl Maier","bahnen": [1,1,2, 2,2,4, 2,2,2, 2,3,3, 3,3,1, 3,3,3]},{"anlage": "SG Arheilgen Miniaturgolf","datum": "2017-09-25","spieler" : "Johanna Jung","bahnen": [1,2,1, 1,1,1, 1,2,1, 1,1,1, 2,1,2, 1,5,2]}, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-04-23", "spieler" : "Johanna Jung", "bahnen": [2,2,1, 1,2,1, 1,1,1, 2,1,1, 2,2,1, 1,2,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,1,1, 1,2,2, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-02-01", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,2,1, 1,1,1, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [3,2,2, 1,5,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,2,1, 1,2,2, 2,5,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [2,2,2, 2,1,2, 1,4,1, 1,2,1, 2,1,1, 1,1,1] }];
-      
+
       return data;
   }
-    
+
   playerColors(data) {
     //Get all Player
     var playerColors = {};
@@ -96,7 +93,6 @@ class App extends Component {
       return
     }
     let newDiagram = this.state.selectedStatistic.value();
-    if(this.state.bottomSpace) newDiagram.bottomSpace = this.state.bottomSpace
     let newDiagrams = this.state.diagrams;
     newDiagrams.push(newDiagram)
     this.setState({...this.initialState, diagrams:newDiagrams})
@@ -115,10 +111,6 @@ class App extends Component {
       this.setState({title: event.target.value}, ()=>{
         this.updatePreview()
       })
-  }
-
-  handleBottomSpaceChange = event => {
-      this.setState({bottomSpace: event.target.value})
   }
 
   handleAnlagenSelectChange = value => {

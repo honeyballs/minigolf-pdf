@@ -64,10 +64,6 @@ const OptionList = props => {
           <p>Titel</p>
           <input id="title-input" type="text" value={props.title?props.title:''} onChange={props.handleTitleChange} />
         </div>
-        <div className="select-wrap">
-          <p>Abstand nach unten(px)</p>
-          <input id="bottom-space-input" type="number" value={props.bottomSpace} onChange={props.handleBottomSpaceChange} />
-        </div>
       </div>)}
     </div>
   );
