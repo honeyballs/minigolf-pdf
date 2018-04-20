@@ -6,7 +6,10 @@ import Statistics from "./statistics";
 const Sidebar = props => {
   return (
     <div id="Sidebar">
-      <h1>Minigolf PDF</h1>
+      <div className="sidebar-headline">
+        <h1>Minigolf PDF</h1>
+        <button onClick={ evt => props.toggleTutorial()}>?</button>
+      </div>
       <p className="dropzone-headline">{props.fileName?<span><b>{props.fileName}</b> loaded</span>: 'Drag your JSON file here:'}</p>
       {props.fileError && <p className="dropzone-error">{props.fileError}</p>}
       <div className="dropzone" accept=".json">
