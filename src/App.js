@@ -9,7 +9,7 @@ import "./App.css";
 
 class App extends Component {
   initialState = {
-    data: this.defaultData(),
+    data: [],
     fileName: false,
     fileError: false,
     showAdvancedOptions: false,
@@ -89,13 +89,13 @@ class App extends Component {
 
   addDiagram = value => {
     if(!this.state.selectedStatistic){
-      console.log("no diagram selected")
+      console.log("Kein Diagramm ausgewählt")
       return
     }
     let newDiagram = this.state.selectedStatistic.value();
     let newDiagrams = this.state.diagrams;
     newDiagrams.push(newDiagram)
-    this.setState({...this.initialState, diagrams:newDiagrams})
+    this.setState({...this.initialState, diagrams:newDiagrams, data:this.state.data, fileName: this.state.fileName, })
   }
 
   updatePreview = value => {
@@ -155,12 +155,12 @@ class App extends Component {
   loadFile = files => {
     this.setState({...this.initialState, diagrams: []})
     if (!files.length) {
-      this.setState({...this.initialState, fileError: 'something went wrong during file upload!'});
+      this.setState({...this.initialState, fileError: 'Beim Datei-Upload lief etwas schief!'});
       return;
     }
     let file = files[0];
     if (!file.name.endsWith(".json")) {
-      this.setState({...this.initialState, fileError: 'uploaded file is not a .json file!'});
+      this.setState({...this.initialState, fileError: 'Die hochgeladene Datei ist keine .json Datei!'});
       return;
     }
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -178,12 +178,12 @@ class App extends Component {
             selectedBahnen: [],
             colors: this.playerColors(data) });
         } catch (err) {
-          this.setState({...this.initialState, fileError: 'error parsing the json! (check https://jsonlint.com/)'});
+          this.setState({...this.initialState, fileError: 'Fehler beim parsen des JSON (siehe https://jsonlint.com/)'});
         }
       };
       reader.readAsText(file);
     } else {
-      this.setState({...this.initialState, fileError: 'the file APIs are not fully supported in this browser!'});
+      this.setState({...this.initialState, fileError: 'Die file API wird von diesem Browser nicht ausreichend unterstützt!'});
     }
   };
 

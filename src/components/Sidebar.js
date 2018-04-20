@@ -7,12 +7,12 @@ const Sidebar = props => {
   return (
     <div id="Sidebar">
       <h1>Minigolf PDF</h1>
-      <p className="dropzone-headline">{props.fileName?<span><b>{props.fileName}</b> loaded</span>: 'Drag your JSON file here:'}</p>
+      <p className="dropzone-headline">{props.fileName?<span><b>{props.fileName}</b> loaded</span>: 'Legen Sie ihre JSON Datei hier ab:'}</p>
       {props.fileError && <p className="dropzone-error">{props.fileError}</p>}
       <div className="dropzone" accept=".json">
         <Dropzone onDrop={props.loadFile} style={dropStyle}>
           <p>
-            Drop a file here, or click to select a file to upload.
+            Legen Sie eine Datei ab, oder klicken Sie zum Hochladen.
           </p>
         </Dropzone>
       </div>
