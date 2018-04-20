@@ -23,7 +23,7 @@ class App extends Component {
     colors: this.playerColors(this.defaultData()),
     showEditor: false
   };
-  state = this.initialState;
+  state = {...this.initialState};
 
 
   render() {
@@ -153,6 +153,7 @@ class App extends Component {
   }
 
   loadFile = files => {
+    this.setState({...this.initialState, diagrams: []})
     if (!files.length) {
       this.setState({...this.initialState, fileError: 'something went wrong during file upload!'});
       return;
