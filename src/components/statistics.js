@@ -116,6 +116,7 @@ class Statistics extends React.Component {
       }).forEach(data=>{
         if(!players[data.spieler]) players[data.spieler] = {scores:[], count:[], avg:[]}
         let player = players[data.spieler]
+        console.log(data.bahnen)
         data.bahnen.forEach((score, index)=>{
           if(player.scores[index] !== undefined){
             player.scores[index] += score
@@ -167,54 +168,46 @@ class Statistics extends React.Component {
     }
 
     ergebnisseProMonat() {
-      let spieler = this.props.selectedSpieler[0]
-      if(!spieler){
-        //TODO: default select first spieler and reassign
-        return
-      }
+      let games = {}
+      const reducer = (accumulator, currentValue) => accumulator + currentValue
 
-      let results = this.props.data.filter(d=>{
-        return d.spieler == spieler.value
-      })
-
-
-      let months = {}
-
-      results.sort((a,b)=>{
-        let aD = new Date(a.datum)
-        let bD = new Date(b.datum)
-        return aD.getTime() > bD.getTime()
-      })
-
-      results.forEach(res=>{
-        let total = 0
-        res.bahnen.forEach(bahn=>{total+=bahn})
-        let d = new Date(res.datum)
-        //TODO: month add leading 0
-        let str = (d.getMonth()+1)+'.'+d.getFullYear()
-        if(months[str]){
-          months[str].total += total
-          months[str].count += 1
-        }else{
-          months[str] = {total: total, count: 1}
+      this.props.data.filter(d=>{
+        //filter by player
+        if(this.props.selectedSpieler.length && this.props.selectedSpieler[0]){
+          let match = this.props.selectedSpieler.filter(s=>s.value === d.spieler)
+          if(!match || !match.length) return false
+        }
+        return d
+      }).forEach(data=>{
+        if(!games[data.spieler]) games[data.spieler] = {date:[],score:[]}
+        let player = games[data.spieler]
+        let dateFound = false
+        player.date.forEach((key,val) => {
+          if (!dateFound && key == Date.parse(data.datum)) {
+            player.score[val] = (player.score[val] + data.bahnen.reduce(reducer)) / 2
+            dateFound = true
+          }
+        })
+        if(!dateFound){
+          player.date.push(Date.parse(data.datum))
+          player.score.push(data.bahnen.reduce(reducer))
         }
       })
 
-
-      let labels = []
       let datasets = []
-      let spielerData = []
-      Object.keys(months).forEach(key => {
-        labels.push(key)
-        spielerData.push(months[key].total/months[key].count)
-      })
+      let labels = []
+      Object.keys(games).forEach(key=>{
+        datasets.push({
+          label: key,
+          data: games[key].score,
+          borderColor: this.props.colors[key],
+          backgroundColor: this.props.colors[key],
+          fill: false
+        })
+        games[key].date.forEach(k=>{
+          labels.push(k)
+        })
 
-      datasets.push({
-        label: spieler.value,
-        data: spielerData,
-        borderColor: this.props.colors[spieler.label],
-        backgroundColor: this.props.colors[spieler.label],
-        fill: false
       })
 
       //TODO: yAchse Puffer nach oben und unten. xAchse auch Puffern wenn möglich, sieht blod aus wenn nur 1 eintrag vorhanden
@@ -225,8 +218,13 @@ class Statistics extends React.Component {
       }
       let options = {
         scales: {
-          yAxes: [{
-
+          xAxes: [{
+            type: 'time',
+            time: {
+              displayFormats: {
+                quarter: 'MMM YYYY'
+              }
+            }
           }]
         }
       }
