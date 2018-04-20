@@ -52,7 +52,7 @@ const Sidebar = props => {
       {(props.data.length != 0) && (
       <div id="sidebar-buttons">
         {props.selectedStatistic && (<button onClick={props.addDiagram}>Hinzufügen</button>)}
-        <button onClick={evt => props.doPrint()} style={btnPrintStyle}>Drucken</button>
+        <button onClick={evt => props.doPrint()} style={btnPrintStyle}>PDF Generieren</button>
       </div>
       )}
     </div>

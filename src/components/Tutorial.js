@@ -11,7 +11,7 @@ const Tutorial = props => {
                 Außerdem kann dem Diagramm noch ein eigener Titel gegeben werden. </p>
             <p>Wenn Sie mit dem Diagramm zufrieden sind, können Sie es mit einem Klick auf "Hinzufügen" in das Dokument einfügen.
                 Dieser Vorgang lässt sich beliebig oft wiederholen.</p>
-            <p>Ist das Dokument erstellt, so lässt sich das PDF über den "Drucken" Button erzeugen. 
+            <p>Ist das Dokument erstellt, so lässt sich das PDF über den "PDF Generieren" Button erzeugen. 
                 Wählen Sie im Dialog des Browsers "PDF" als Ausgabe.</p> 
         </div>
     )
