@@ -116,7 +116,6 @@ class Statistics extends React.Component {
       }).forEach(data=>{
         if(!players[data.spieler]) players[data.spieler] = {scores:[], count:[], avg:[]}
         let player = players[data.spieler]
-        console.log(data.bahnen)
         data.bahnen.forEach((score, index)=>{
           if(player.scores[index] !== undefined){
             player.scores[index] += score
@@ -216,7 +215,6 @@ class Statistics extends React.Component {
         })
 
       })
-
       //TODO: yAchse Puffer nach oben und unten. xAchse auch Puffern wenn möglich, sieht blod aus wenn nur 1 eintrag vorhanden
       var data = {
         labels: labels,

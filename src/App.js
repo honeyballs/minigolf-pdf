@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Sidebar from "./components/Sidebar";
 import PDF from './components/pdf';
 import Editor from './components/Editor';
+import Tutorial from './components/Tutorial';
 
 import distinctColors from 'distinct-colors';
 
@@ -9,12 +10,11 @@ import "./App.css";
 
 class App extends Component {
   initialState = {
-    data: this.defaultData(),
+    data: [],
     fileName: false,
     fileError: false,
     showAdvancedOptions: false,
     title: false,
-    bottomSpace: 0,
     selectedAnlagen: [],
     selectedSpieler: [],
     selectedBahnen: [],
@@ -22,11 +22,12 @@ class App extends Component {
     diagrams: [],
     preview: false,
     colors: this.playerColors(this.defaultData()),
-    showEditor: false
+    showEditor: false,
+    showTutorial: false
   };
-  state = this.initialState;
+  state = {...this.initialState};
 
-         
+
   render() {
     return (
       <div className="App">
@@ -40,8 +41,6 @@ class App extends Component {
           setShowAdvancedOptions={this.setShowAdvancedOptions}
           title={this.state.title}
           handleTitleChange={this.handleTitleChange}
-          bottomSpace={this.state.bottomSpace}
-          handleBottomSpaceChange={this.handleBottomSpaceChange}
           selectedAnlagen={this.state.selectedAnlagen}
           handleAnlagenChange={this.handleAnlagenSelectChange}
           selectedSpieler={this.state.selectedSpieler}
@@ -52,21 +51,26 @@ class App extends Component {
           handleStatisticChange={this.handleStatisticChange}
           addDiagram={this.addDiagram}
           doPrint={this.doPrint}
+          toggleTutorial={this.toggleTutorial}
         />
         <div id="pdf-container">
           {this.state.data.showEditor && (<Editor data={this.state.data} updateJSON={this.updateJSON}/>)}
-          <PDF diagrams={this.state.diagrams} selectedStatistic={this.state.selectedStatistic} preview={this.state.preview}/>
+          {this.state.showTutorial ? <Tutorial /> : <PDF diagrams={this.state.diagrams} selectedStatistic={this.state.selectedStatistic} preview={this.state.preview}/>}        
         </div>
       </div>
     );
   }
-  
+
   defaultData() {
       var data = [{"anlage": "Freibad Wetzlar","datum": "2018-02-27","spieler" : "Karl Maier","bahnen": [1,1,2, 2,2,4, 2,2,2, 2,3,3, 3,3,1, 3,3,3]},{"anlage": "SG Arheilgen Miniaturgolf","datum": "2017-09-25","spieler" : "Johanna Jung","bahnen": [1,2,1, 1,1,1, 1,2,1, 1,1,1, 2,1,2, 1,5,2]}, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-04-23", "spieler" : "Johanna Jung", "bahnen": [2,2,1, 1,2,1, 1,1,1, 2,1,1, 2,2,1, 1,2,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,1,1, 1,2,2, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-02-01", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,2,1, 1,1,1, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [3,2,2, 1,5,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,2,1, 1,2,2, 2,5,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [2,2,2, 2,1,2, 1,4,1, 1,2,1, 2,1,1, 1,1,1] }];
-      
+
       return data;
   }
-    
+
+  toggleTutorial = () => {
+    this.setState({...this.state, showTutorial: !this.state.showTutorial});
+  }
+
   playerColors(data) {
     //Get all Player
     var playerColors = {};
@@ -92,14 +96,13 @@ class App extends Component {
 
   addDiagram = value => {
     if(!this.state.selectedStatistic){
-      console.log("no diagram selected")
+      console.log("Kein Diagramm ausgewählt")
       return
     }
     let newDiagram = this.state.selectedStatistic.value();
-    if(this.state.bottomSpace) newDiagram.bottomSpace = this.state.bottomSpace
     let newDiagrams = this.state.diagrams;
     newDiagrams.push(newDiagram)
-    this.setState({...this.initialState, diagrams:newDiagrams})
+    this.setState({...this.initialState, diagrams:newDiagrams, data:this.state.data, fileName: this.state.fileName, })
   }
 
   updatePreview = value => {
@@ -115,10 +118,6 @@ class App extends Component {
       this.setState({title: event.target.value}, ()=>{
         this.updatePreview()
       })
-  }
-
-  handleBottomSpaceChange = event => {
-      this.setState({bottomSpace: event.target.value})
   }
 
   handleAnlagenSelectChange = value => {
@@ -161,13 +160,14 @@ class App extends Component {
   }
 
   loadFile = files => {
+    this.setState({...this.initialState, diagrams: []})
     if (!files.length) {
-      this.setState({...this.initialState, fileError: 'something went wrong during file upload!'});
+      this.setState({...this.initialState, fileError: 'Beim Datei-Upload lief etwas schief!'});
       return;
     }
     let file = files[0];
     if (!file.name.endsWith(".json")) {
-      this.setState({...this.initialState, fileError: 'uploaded file is not a .json file!'});
+      this.setState({...this.initialState, fileError: 'Die hochgeladene Datei ist keine .json Datei!'});
       return;
     }
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -185,12 +185,12 @@ class App extends Component {
             selectedBahnen: [],
             colors: this.playerColors(data) });
         } catch (err) {
-          this.setState({...this.initialState, fileError: 'error parsing the json! (check https://jsonlint.com/)'});
+          this.setState({...this.initialState, fileError: 'Fehler beim parsen des JSON (siehe https://jsonlint.com/)'});
         }
       };
       reader.readAsText(file);
     } else {
-      this.setState({...this.initialState, fileError: 'the file APIs are not fully supported in this browser!'});
+      this.setState({...this.initialState, fileError: 'Die file API wird von diesem Browser nicht ausreichend unterstützt!'});
     }
   };
 

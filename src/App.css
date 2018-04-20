@@ -21,6 +21,14 @@
   overflow-x: hidden;
 }
 
+.sidebar-headline {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .dropzone {
   width: 90%;
   margin: 20px auto;
@@ -84,7 +92,7 @@
   align-items: center;
 }
 
-#sidebar-buttons > button {
+#sidebar-buttons > button, .sidebar-headline > button {
   font-size: 1.2em;
   color: #fff;
   background: #222;
@@ -93,10 +101,19 @@
   cursor: pointer;
 }
 
-#sidebar-buttons > button:hover {
+#sidebar-buttons > button:hover, .sidebar-headline > button:hover {
   color: #222;
   background: #fff;
   border: 1px solid #222;
+}
+
+.sidebar-headline > button {
+  font-size: 1.2em;
+  color: #fff;
+  background: #222;
+  border: 1px solid #fff;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 
 #title-input, #bottom-space-input {
@@ -137,4 +154,15 @@
     }
   }
 
+}
+
+.tutorial {
+  background: #fff;
+  width: 80%;
+  margin: 50px auto;
+  padding: 20px;
+  -webkit-box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 37px -11px rgba(0,0,0,0.75);
+  text-align: left;
 }

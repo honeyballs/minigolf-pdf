@@ -19,7 +19,7 @@ const PDF = props => {
           </div>
         </div>
       ) : <div id="pdf-content">{props.diagrams.map((d, index) =>
-        <div className="diagram-item" style={ {marginBottom: (d.bottomSpace? d.bottomSpace+'px' : false)} }>
+        <div className="diagram-item">
           <h3>{d.title}</h3>
           <Diagram key={index} type={d.type} desc={d.desc} options={d.options}/>
         </div>

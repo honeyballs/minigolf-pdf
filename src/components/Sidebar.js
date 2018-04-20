@@ -6,13 +6,16 @@ import Statistics from "./statistics";
 const Sidebar = props => {
   return (
     <div id="Sidebar">
-      <h1>Minigolf PDF</h1>
-      <p className="dropzone-headline">{props.fileName?<span><b>{props.fileName}</b> loaded</span>: 'Drag your JSON file here:'}</p>
+      <div className="sidebar-headline">
+        <h1>Minigolf PDF</h1>
+        <button onClick={ evt => props.toggleTutorial()}>?</button>
+      </div>
+      <p className="dropzone-headline">{props.fileName?<span><b>{props.fileName}</b> geladen</span>: 'Legen Sie ihre JSON Datei hier ab:'}</p>
       {props.fileError && <p className="dropzone-error">{props.fileError}</p>}
       <div className="dropzone" accept=".json">
         <Dropzone onDrop={props.loadFile} style={dropStyle}>
           <p>
-            Drop a file here, or click to select a file to upload.
+            Legen Sie eine Datei ab, oder klicken Sie zum Hochladen.
           </p>
         </Dropzone>
       </div>
@@ -35,8 +38,6 @@ const Sidebar = props => {
               setShowAdvancedOptions={props.setShowAdvancedOptions}
               title={props.title}
               handleTitleChange={props.handleTitleChange}
-              bottomSpace={props.bottomSpace}
-              handleBottomSpaceChange={props.handleBottomSpaceChange}
               selectedAnlagen={props.selectedAnlagen}
               handleAnlagenChange={props.handleAnlagenChange}
               selectedSpieler={props.selectedSpieler}
@@ -48,11 +49,12 @@ const Sidebar = props => {
           )}
         </div>
       )}
-
+      {(props.data.length != 0) && (
       <div id="sidebar-buttons">
         {props.selectedStatistic && (<button onClick={props.addDiagram}>Hinzufügen</button>)}
-        <button onClick={evt => props.doPrint()} style={btnPrintStyle}>Drucken</button>
+        <button onClick={evt => props.doPrint()} style={btnPrintStyle}>PDF Generieren</button>
       </div>
+      )}
     </div>
   );
 };
