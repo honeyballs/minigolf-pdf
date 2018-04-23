@@ -10,7 +10,7 @@ class Statistics extends React.Component {
             statistics: [
                 {label: "Schläge pro Bahn", value: this.schlaegeProBahn.bind(this), spieler: 'SINGLE', anlagen: 'MULTI'},
                 {label: "Spieler pro Bahn", value: this.spielerProBahn.bind(this), spieler: 'MULTI'},
-                {label: "Ergebnisse pro Monat", value: this.ergebnisseProMonat.bind(this), spieler: 'SINGLE'}
+                {label: "Ergebnisse pro Monat", value: this.ergebnisseProMonat.bind(this), spieler: 'MULTI'}
             ]
         };
     }
@@ -177,6 +177,10 @@ class Statistics extends React.Component {
           if(!match || !match.length) return false
         }
         return d
+      }).sort((a,b)=>{ 
+        let aD = new Date(a.datum) 
+        let bD = new Date(b.datum) 
+        return aD.getTime() > bD.getTime() 
       }).forEach(data=>{
         if(!games[data.spieler]) games[data.spieler] = {date:[],score:[]}
         let player = games[data.spieler]
@@ -211,7 +215,7 @@ class Statistics extends React.Component {
           fill: false
         })
         games[key].date.forEach(k=>{
-          labels.push(k)
+          //labels.push(k)
         })
 
       })
