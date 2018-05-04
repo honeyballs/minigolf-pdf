@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Sidebar from "./components/Sidebar";
 import PDF from './components/pdf';
-import Editor from './components/Editor';
 import Tutorial from './components/Tutorial';
 
 import distinctColors from 'distinct-colors';
@@ -21,8 +20,7 @@ class App extends Component {
     selectedStatistic: false,
     diagrams: [],
     preview: false,
-    colors: this.playerColors(this.defaultData()),
-    showEditor: false,
+    colors: [],
     showTutorial: false
   };
   state = {...this.initialState};
@@ -54,17 +52,10 @@ class App extends Component {
           toggleTutorial={this.toggleTutorial}
         />
         <div id="pdf-container">
-          {this.state.data.showEditor && (<Editor data={this.state.data} updateJSON={this.updateJSON}/>)}
           {this.state.showTutorial ? <Tutorial /> : <PDF diagrams={this.state.diagrams} selectedStatistic={this.state.selectedStatistic} preview={this.state.preview}/>}        
         </div>
       </div>
     );
-  }
-
-  defaultData() {
-      var data = [{"anlage": "Freibad Wetzlar","datum": "2018-02-27","spieler" : "Karl Maier","bahnen": [1,1,2, 2,2,4, 2,2,2, 2,3,3, 3,3,1, 3,3,3]},{"anlage": "SG Arheilgen Miniaturgolf","datum": "2017-09-25","spieler" : "Johanna Jung","bahnen": [1,2,1, 1,1,1, 1,2,1, 1,1,1, 2,1,2, 1,5,2]}, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-04-23", "spieler" : "Johanna Jung", "bahnen": [2,2,1, 1,2,1, 1,1,1, 2,1,1, 2,2,1, 1,2,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,1,1, 1,2,2, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-02-01", "spieler" : "Johanna Jung", "bahnen": [1,2,2, 1,1,1, 1,1,1, 1,2,1, 1,1,1, 1,1,2] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Selina Krauss", "bahnen": [3,2,2, 1,5,2, 1,1,1, 1,1,1, 1,1,1, 1,1,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [1,3,2, 1,1,1, 1,1,1, 1,2,1, 1,2,2, 2,5,1] }, { "anlage": "SG Arheilgen Miniaturgolf", "datum": "2017-09-25", "spieler" : "Marcel Staudt", "bahnen": [2,2,2, 2,1,2, 1,4,1, 1,2,1, 2,1,1, 1,1,1] }];
-
-      return data;
   }
 
   toggleTutorial = () => {
