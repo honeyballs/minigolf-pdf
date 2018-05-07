@@ -93,7 +93,7 @@ class App extends Component {
     let newDiagram = this.state.selectedStatistic.value();
     let newDiagrams = this.state.diagrams;
     newDiagrams.push(newDiagram)
-    this.setState({...this.initialState, diagrams:newDiagrams, data:this.state.data, fileName: this.state.fileName, })
+    this.setState({...this.initialState, diagrams:newDiagrams, data:this.state.data, fileName: this.state.fileName, colors: this.state.colors})
   }
 
   updatePreview = value => {

@@ -4,7 +4,6 @@ import Diagram from './Diagram'
 
 
 const PDF = props => {
-
   return (
     <div id="pdf">
       {(props.selectedStatistic && props.preview)? (
@@ -17,7 +16,7 @@ const PDF = props => {
           </div>
         </div>
       ) : <div id="pdf-content">{props.diagrams.map((d, index) =>
-        <div className="diagram-item">
+        <div className="diagram-item" key={index}>
           <h3>{d.title}</h3>
           <Diagram key={index} type={d.type} desc={d.desc} options={d.options}/>
         </div>
