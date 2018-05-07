@@ -5,8 +5,6 @@ import Diagram from './Diagram'
 
 const PDF = props => {
 
-  //TODO: CSS add dinA4 hint
-
   return (
     <div id="pdf">
       {(props.selectedStatistic && props.preview)? (

@@ -19,8 +19,6 @@ class Statistics extends React.Component {
         return self.indexOf(value) === index;
     }
 
-    //TODO: generate colors for diagrams
-
     schlaegeProBahn() {
 
       let scores = [];
@@ -28,7 +26,6 @@ class Statistics extends React.Component {
       let labels = [];
       let avg = [];
 
-      //TODO: weitere Filter berücksichtigen
       this.props.data.filter(d=>{
         //filter by anlage
         if(this.props.selectedAnlagen.length){
@@ -105,7 +102,6 @@ class Statistics extends React.Component {
       let players = {}
       let labels = []
 
-      //TODO: weitere Filter berücksichtigen
       this.props.data.filter(d=>{
         //filter by player
         if(this.props.selectedSpieler.length && this.props.selectedSpieler[0]){
@@ -177,10 +173,10 @@ class Statistics extends React.Component {
           if(!match || !match.length) return false
         }
         return d
-      }).sort((a,b)=>{ 
-        let aD = new Date(a.datum) 
-        let bD = new Date(b.datum) 
-        return aD.getTime() > bD.getTime() 
+      }).sort((a,b)=>{
+        let aD = new Date(a.datum)
+        let bD = new Date(b.datum)
+        return aD.getTime() > bD.getTime()
       }).forEach(data=>{
         if(!games[data.spieler]) games[data.spieler] = {date:[],score:[]}
         let player = games[data.spieler]
@@ -219,7 +215,7 @@ class Statistics extends React.Component {
         })
 
       })
-      //TODO: yAchse Puffer nach oben und unten. xAchse auch Puffern wenn möglich, sieht blod aus wenn nur 1 eintrag vorhanden
+
       var data = {
         labels: labels,
         datasets: datasets,
